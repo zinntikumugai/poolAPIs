@@ -1,0 +1,16 @@
+{
+  "name": "poolAPIs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "zinntikumugai <uesitananame55@gmail.com> (https://zinntikumugai.com)",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "eventsource": "^1.0.7",
+    "request": "^2.88.0"
+  }
+}
