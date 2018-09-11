@@ -5,8 +5,9 @@ class NOMP {
     constructor(host) {
         this.host = host;
     }
-    stats() {
-        let _p = (async () => {
+
+    status() {
+        return new Promise(async (resolve, reject) => {
             let data = await util.asyncGet(this.host + '/api/stats');
             let res = data.response;
             let body = data.body;
@@ -28,9 +29,8 @@ class NOMP {
                 algos: algos,
                 pools: pools
             }
-            return data;
+            resolve(data);
         });
-        return _p();
     }
 
     blocks() {
@@ -76,7 +76,7 @@ class NOMP {
     }
 
     payments() {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             let data = await util.asyncGet(this.host + '/api/payments');
             if (!data.response && !data.body)
                 return;
@@ -113,10 +113,10 @@ class NOMP {
     }
 
     worker_stats(address) {
-        return new Promise(async(resolve, reject)=> {
-            if(!address)
+        return new Promise(async (resolve, reject) => {
+            if (!address)
                 reject('Missing Address');
-            let data = await util.asyncGet(thsi.host + '/api/worker_stats?'+address);
+            let data = await util.asyncGet(thsi.host + '/api/worker_stats?' + address);
             if (!data.response && !data.body)
                 return;
             let body = JSON.parse(data.body);
@@ -126,13 +126,13 @@ class NOMP {
 
     live_stats() {
         let es = new eventsource(this.host + '/api/live_stats');
-        es.on('open', ()=>{
+        es.on('open', () => {
             console.log('connected.');
         });
-        es.on('message', e=>{
+        es.on('message', e => {
             console.log(e);
         });
-        es.on('error', e=>{
+        es.on('error', e => {
             console.log(e);
         });
         //一つのデータがアホ
